@@ -1,0 +1,60 @@
+.right{
+    width:50%;
+    float:right;
+}
+
+.left{
+    width:50%;
+    float:left;
+    background-color: #262627;
+} 
+
+.word{
+    margin-left:10rem; 
+    margin-top:25rem;
+}
+
+.input_file{
+    margin-left:10rem; 
+    margin-top:3rem;
+}
+
+.welcoming_word{
+    color:white;
+    margin-left:20rem;
+    margin-top:10rem;
+    font-family: 'Nunito', sans-serif;
+}
+
+.lp{
+    margin-left:20rem;
+    margin-top:15rem;
+    float:right;
+    font-family: 'Nunito', sans-serif;
+}
+
+p.top{
+    color:black;
+    font-size:30px;
+    font-weight: bold;
+}
+
+p.bottom{
+    color:gray;
+}
+
+.input{
+    max-width:30rem;
+    margin-bottom:30px;
+    margin-top:30px;
+}
+
+.submit{
+    float:right;
+    margin-top:10rem;
+    margin-right:20rem;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=Noto+Sans&family=Nunito&display=swap');
+
+
