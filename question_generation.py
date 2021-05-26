@@ -1,23 +1,19 @@
 import numpy as np
 import nltk
 nltk.download('punkt')
-from scipy import spatial
 import pipelines
 import random
 
-
-def create_questions(input_text_file):
+def create_questions(input_text):
     # text file should contain summaries of each page seperated by a line
     nlp = pipelines.pipeline("question-generation", model="valhalla/t5-base-qg-hl")
-    with open(input_text_file) as f:
-        raw = f.read()
-    raw_sep = raw.split('\n')
-
-    for summary in raw_sep:
-        question_answer = nlp(text)
+    
+    question_answer = nlp(input_text)
     embeddings_dict = {}
 
     # creating the embeddings dictionary to get word vectors 
+    # requires the download of the glove word embeddings text file for 50 dimensions
+    # 
     with open("glove.6B.50d.txt", 'r') as f:
         for line in f:
             values = line.split()
@@ -45,6 +41,7 @@ def create_questions(input_text_file):
             pass
         answer = answer.split()
         if len(answer) == 1:
+            # answer consists of one word
             try:
                 options = find_closest_embeddings(embeddings_dict[answer[0]])[8:15]
                 #print(options)
@@ -52,6 +49,7 @@ def create_questions(input_text_file):
             except:
                 continue
         elif len(answer) == 2:
+            # answer consists of 2 words
             try:
                 options = find_closest_embeddings(embeddings_dict[answer[0].lower()]+embeddings_dict[answer[1].lower()])[8:15]
                 pair['alternatives'] = random.choices(options, k=3)
@@ -63,5 +61,7 @@ def create_questions(input_text_file):
 
 
 if __name__ == '__main__':
-    sample_text_file = 'biology_notes.txt'
-    create_questions(sample_text_file)
+    
+    with open('biology_notes.txt') as f:
+        raw = f.read()
+    print(create_questions(raw))

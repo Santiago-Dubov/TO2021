@@ -35,28 +35,7 @@ def openai_summarize(input_file):
         
     f.close()
 
-def bart_summarize(input_file):
-    model = BartForConditionalGeneration.from_pretrained('facebook/bart-large-cnn')
-    tokenizer = BartTokenizer.from_pretrained('facebook/bart-large-cnn')
-    
-    num_count = get_num_pages(input_file)
-    f = open('summarized_bart.txt','a+')
 
-    count=0
-    while count<num_count:
-        text= pdf_to_text(input_file,count)
-        ARTICLE_TO_SUMMARIZE = text
-        inputs = tokenizer([ARTICLE_TO_SUMMARIZE], max_length=1024, return_tensors='pt')
-        # Generate Summary
-        summary_ids = model.generate(inputs['input_ids'], num_beams=4, max_length=5, early_stopping=True)
-        summarized_text = [tokenizer.decode(g, skip_special_tokens=True, clean_up_tokenization_spaces=False) for g in summary_ids]
-        print(summarized_text)
-        str1=''.join(summarized_text)
-        print(str1)
-        f.write(str1)
-        count += 1
-        
-    f.close()
 
 def bart_large(input_file):
     #headers = {"Authorization": f"Bearer {API_TOKEN}"}
